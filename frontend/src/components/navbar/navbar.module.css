@@ -17,7 +17,7 @@
   display: flex;
   margin-left: 0;
   padding-left: 0;
-  gap: 5em;
+  gap: 4em;
 }
 
 .navElementsContainer {
@@ -32,4 +32,10 @@
 .title {
   text-align: center;
   padding-top: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  .navElementsContainer ul {
+    gap: 2em;
+  }
 }
