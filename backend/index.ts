@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import products from "./routes/products";
+import users from "./routes/authRoutes";
 const app: Express = express();
 const port = 5002;
 
@@ -9,6 +10,7 @@ app.use(express.json());
 
 //
 app.use("/api", products);
+app.use(`/api`, users);
 
 app.use(`/`, (req: Request, res: Response) => {
   res.send("Homepage of the api.");

@@ -6,12 +6,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const products_1 = __importDefault(require("./routes/products"));
+const authRoutes_1 = __importDefault(require("./routes/authRoutes"));
 const app = (0, express_1.default)();
 const port = 5002;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 //
 app.use("/api", products_1.default);
+app.use(`/api`, authRoutes_1.default);
 app.use(`/`, (req, res) => {
     res.send("Homepage of the api.");
 });

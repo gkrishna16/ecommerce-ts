@@ -26,7 +26,7 @@ function addData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const q = "insert into products(`name`, `price`, `imgUrl`) values (?, ?, ?)";
         const values = [req.body.name, req.body.price, req.body.imgUrl];
-        db_1.db.query(q, values, (err, data) => {
+        db_1.db.query(q, [values], (err, data) => {
             if (err)
                 res.status(500).json(err);
             if (data)
