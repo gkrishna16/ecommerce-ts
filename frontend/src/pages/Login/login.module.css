@@ -1,0 +1,7 @@
+.container {
+  display: grid;
+  place-content: center;
+  height: 80vh;
+  gap: 1em;
+  text-align: center;
+}

@@ -1,0 +1,11 @@
+.regisContainer {
+  display: grid;
+  place-content: center;
+  height: 80vh;
+  gap: 1em;
+  text-align: center;
+}
+.formContainer {
+  display: grid;
+  gap: 1em;
+}
