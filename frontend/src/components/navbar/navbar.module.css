@@ -1,0 +1,35 @@
+.navElementsContainer ul li a {
+  list-style: none;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+}
+
+.container {
+  background-color: black;
+  color: white;
+}
+
+.navElementsContainer ul li {
+  list-style: none;
+}
+
+.navElementsContainer ul {
+  display: flex;
+  margin-left: 0;
+  padding-left: 0;
+  gap: 5em;
+}
+
+.navElementsContainer {
+  padding: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(69, 66, 66);
+  color: rgb(255, 255, 255);
+}
+
+.title {
+  text-align: center;
+  padding-top: 10px;
+}
