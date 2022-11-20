@@ -33,13 +33,24 @@ export function register(request: Request, response: Response): void {
   }
 }
 
-export function registerdata(req: Request, res: Response) {
+export function registerdata(req: Request, res: Response): void {
   db.query(`select * from users`, (err, data) => {
     if (err) return res.status(500).json(err);
     if (data) return res.status(200).json(data);
   });
 }
 
-function login(req: Request, res: Response) {
+export function login(req: Request, res: Response): void {
+
   
+}
+
+export function getProduct(req: Request, res: Response): void {
+  const category = req.query.cat;
+
+  try {
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }

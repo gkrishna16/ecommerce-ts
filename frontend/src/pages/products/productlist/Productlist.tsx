@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import Products from "../products/Products";
 import prl from "./productlist.module.css";
 
 const Productlist = () => {
   const location = useLocation();
-  console.log(location);
-  const category: string = location.pathname.split("/")[2];
+  console.log(`product list prage ---------`);
+  console.log(`location ------`, location);
+  const cat: string = location.pathname.split("/")[2];
 
-  console.log(category);
+  console.log(cat);
   const [filters, setFilters] = useState({});
   const [sort, setSort] = useState(`newest`);
 
@@ -17,32 +19,34 @@ const Productlist = () => {
     setFilters({ ...filters, [name]: value });
   }
 
-  console.log(filters);
+  console.log(filters, sort);
 
   return (
     <div>
       <div className={`${prl.containerProdlist}`}>
         <div className="">
-          <select name="color" id="" onClick={setFilters}>
-            <option value="men">Red </option>
-            <option value="women">Blue</option>
-            <option value="kids">Green</option>
+          <select name="colors" id="" onClick={handleFilters}>
+            <option value="red">Red </option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
           </select>
-          <select name="size" id="" onClick={setFilters}>
-            <option value="men">X</option>
-            <option value="women">XL</option>
-            <option value="kids">M</option>
-            <option value="kids">S</option>
+          <select name="size" id="" onClick={handleFilters}>
+            <option value="X">X</option>
+            <option value="XL">XL</option>
+            <option value="M">M</option>
+            <option value="S">S</option>
           </select>
         </div>
         <div className="">
-          <select name="" id="" onChange={(e) => setSort(e.target.value)}>
-            <option value="men">Newest</option>
-            <option value="women">Price (asc)</option>
-            <option value="women">Price (desc)</option>
+          <select name="sort" id="" onChange={(e) => setSort(e.target.value)}>
+            <option value="newest">Newest</option>
+            <option value="asc">Price (asc)</option>
+            <option value="desc">Price (desc)</option>
           </select>
         </div>
       </div>
+
+      <Products cat={cat} filters={filters} sort={sort} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.registerdata = exports.register = void 0;
+exports.getProduct = exports.login = exports.registerdata = exports.register = void 0;
 const db_1 = require("../db");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
 function register(request, response) {
@@ -44,3 +44,14 @@ function registerdata(req, res) {
 exports.registerdata = registerdata;
 function login(req, res) {
 }
+exports.login = login;
+function getProduct(req, res) {
+    const category = req.query.cat;
+    try {
+        res.status(200).json(category);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+}
+exports.getProduct = getProduct;
