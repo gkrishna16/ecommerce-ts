@@ -12,9 +12,9 @@ function register(request, response) {
         db_1.db.query(q, [request.body.email, request.body.username], (err, data) => {
             if (err)
                 return response.status(500).json(err);
-            if (data.length) {
-                return response.status(200).json(`User already exists !`);
-            }
+            // if (data.length) {
+            return response.status(200).json(`User already exists !`);
+            // }
         });
         0;
         const salt = bcryptjs_1.default.genSaltSync(10);

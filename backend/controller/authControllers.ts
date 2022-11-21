@@ -8,9 +8,9 @@ export function register(request: Request, response: Response): void {
   try {
     db.query(q, [request.body.email, request.body.username], (err, data) => {
       if (err) return response.status(500).json(err);
-      if (data.length) {
+      // if (data.length) {
         return response.status(200).json(`User already exists !`);
-      }
+      // }
     });
     0;
 
