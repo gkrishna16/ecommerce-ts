@@ -5,7 +5,7 @@ import {
   getData,
   getProdcutMen,
   getProdcutWomen,
-} from "../controller/products";
+} from "../../controller/products/products";
 const router = express.Router();
 
 router.get("/get", getData);

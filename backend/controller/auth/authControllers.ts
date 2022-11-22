@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { db } from "../db";
+import { db } from "../../db";
 import bcrypt from "bcryptjs";
 
 export function register(request: Request, response: Response): void {
@@ -51,5 +51,3 @@ export function getProduct(req: Request, res: Response): void {
     res.status(500).json(error);
   }
 }
-
-

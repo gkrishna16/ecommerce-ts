@@ -1,4 +1,4 @@
-import { db } from "../db";
+import { db } from "../../db";
 import express, { Express, Request, Response, NextFunction } from "express";
 
 export async function getData(req: Request, res: Response) {

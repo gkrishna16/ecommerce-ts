@@ -1,7 +1,8 @@
 import express, { Express, Request, Response, NextFunction } from "express";
 import cors from "cors";
-import products from "./routes/products";
-import users from "./routes/authRoutes";
+import products from "./routes/products/products";
+import users from "./routes/auth/authRoutes";
+import carts from "./routes/carts/carts";
 const app: Express = express();
 const port = 5002;
 
@@ -11,6 +12,7 @@ app.use(express.json());
 //
 app.use("/api/products", products);
 app.use(`/api/users`, users);
+app.use(`/api/cart`, carts);
 
 app.use(`/`, (req: Request, res: Response) => {
   res.send("Homepage of the api.");

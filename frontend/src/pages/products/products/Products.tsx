@@ -34,7 +34,6 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
         } else {
           res = await Axios.get(`http://localhost:5002/api/products/get`);
         }
-
         console.log(res.data);
         setProducts(res.data);
       } catch (error) {

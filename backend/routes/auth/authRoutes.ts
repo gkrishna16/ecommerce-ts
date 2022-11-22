@@ -1,10 +1,11 @@
 import express from "express";
+const router = express.Router();
+
 import {
   registerdata,
   register,
   getProduct,
-} from "../controller/authControllers";
-const router = express.Router();
+} from "../../controller/auth/authControllers";
 
 router.get("/registerdata", registerdata);
 router.post("/register", register);
