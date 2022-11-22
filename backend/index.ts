@@ -9,8 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 //
-app.use("/api", products);
-app.use(`/api`, users);
+app.use("/api/products", products);
+app.use(`/api/users`, users);
 
 app.use(`/`, (req: Request, res: Response) => {
   res.send("Homepage of the api.");

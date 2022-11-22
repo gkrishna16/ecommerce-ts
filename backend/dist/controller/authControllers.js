@@ -42,8 +42,7 @@ function registerdata(req, res) {
     });
 }
 exports.registerdata = registerdata;
-function login(req, res) {
-}
+function login(req, res) { }
 exports.login = login;
 function getProduct(req, res) {
     const category = req.query.cat;

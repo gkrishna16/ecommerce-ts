@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addData = exports.getData = void 0;
+exports.getProdcutWomen = exports.getProdcutMen = exports.addData = exports.getData = void 0;
 const db_1 = require("../db");
 function getData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -35,3 +35,45 @@ function addData(req, res) {
     });
 }
 exports.addData = addData;
+function getProdcutMen(req, res) {
+    try {
+        console.log(`getProdcutMen function called.`);
+        // let received: object[] = [];
+        // let p = `SELECT id, docs FROM example WHERE docs LIKE '%cold%';`;
+        // let q = `SELECT * FROM products WHERE categories LIKE %?%;`;
+        db_1.db.query(`SELECT * FROM products WHERE categories LIKE '%men%';`, (err, data) => {
+            if (err)
+                return res.status(500).json({ error: err });
+            if (data) {
+                // received.push(data);
+                console.log(data);
+                return res.status(200).json(data);
+            }
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+exports.getProdcutMen = getProdcutMen;
+function getProdcutWomen(req, res) {
+    try {
+        console.log(`getProdcutWomen function called.`);
+        // let received: object[] = [];
+        // let p = `SELECT id, docs FROM example WHERE docs LIKE '%cold%';`;
+        // let q = `SELECT * FROM products WHERE categories LIKE %?%;`;
+        db_1.db.query(`SELECT * FROM products WHERE categories LIKE '%women%';`, (err, data) => {
+            if (err)
+                return res.status(500).json({ error: err });
+            if (data) {
+                // received.push(data);
+                console.log(data);
+                return res.status(200).json(data);
+            }
+        });
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+exports.getProdcutWomen = getProdcutWomen;

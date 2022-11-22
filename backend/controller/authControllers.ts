@@ -9,7 +9,7 @@ export function register(request: Request, response: Response): void {
     db.query(q, [request.body.email, request.body.username], (err, data) => {
       if (err) return response.status(500).json(err);
       // if (data.length) {
-        return response.status(200).json(`User already exists !`);
+      return response.status(200).json(`User already exists !`);
       // }
     });
     0;
@@ -40,10 +40,7 @@ export function registerdata(req: Request, res: Response): void {
   });
 }
 
-export function login(req: Request, res: Response): void {
-
-  
-}
+export function login(req: Request, res: Response): void {}
 
 export function getProduct(req: Request, res: Response): void {
   const category = req.query.cat;
@@ -54,3 +51,5 @@ export function getProduct(req: Request, res: Response): void {
     res.status(500).json(error);
   }
 }
+
+

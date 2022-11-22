@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { TupleType } from "typescript";
 import Products from "../products/Products";
 import prl from "./productlist.module.css";
 

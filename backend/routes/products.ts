@@ -1,9 +1,16 @@
 import express from "express";
 
-import { addData, getData } from "../controller/products";
+import {
+  addData,
+  getData,
+  getProdcutMen,
+  getProdcutWomen,
+} from "../controller/products";
 const router = express.Router();
 
-router.get("/products", getData);
-router.post("/product", addData);
+router.get("/get", getData);
+router.post("/add", addData);
+router.get(`/men`, getProdcutMen);
+router.get(`/women`, getProdcutWomen);
 
 export default router;

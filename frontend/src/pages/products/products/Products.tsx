@@ -26,11 +26,15 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await Axios.get(
-          cat
-            ? `http://localhost:5002/api/products?category=${cat}`
-            : `http://localhost:5002/api/products`
-        );
+        let res;
+        if (cat === "women") {
+          res = await Axios.get(`http://localhost:5002/api/products/women`);
+        } else if (cat === "men") {
+          res = await Axios.get(`http://localhost:5002/api/products/men`);
+        } else {
+          res = await Axios.get(`http://localhost:5002/api/products/get`);
+        }
+
         console.log(res.data);
         setProducts(res.data);
       } catch (error) {
@@ -49,7 +53,7 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
           )
         )
       );
-  }, [products, cat, filters]);
+  }, [filters, products, cat]);
 
   console.log(`filtered products`, filteredProducts);
 

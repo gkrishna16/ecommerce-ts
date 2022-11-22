@@ -17,3 +17,51 @@ export async function addData(req: Request, res: Response) {
     if (data) res.status(200).json(`product has been added.`);
   });
 }
+
+export function getProdcutMen(req: Request, res: Response): void {
+  try {
+    console.log(`getProdcutMen function called.`);
+    // let received: object[] = [];
+
+    // let p = `SELECT id, docs FROM example WHERE docs LIKE '%cold%';`;
+    // let q = `SELECT * FROM products WHERE categories LIKE %?%;`;
+
+    db.query(
+      `SELECT * FROM products WHERE categories LIKE '%men%';`,
+      (err, data) => {
+        if (err) return res.status(500).json({ error: err });
+        if (data) {
+          // received.push(data);
+          console.log(data);
+          return res.status(200).json(data);
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function getProdcutWomen(req: Request, res: Response): void {
+  try {
+    console.log(`getProdcutWomen function called.`);
+    // let received: object[] = [];
+
+    // let p = `SELECT id, docs FROM example WHERE docs LIKE '%cold%';`;
+    // let q = `SELECT * FROM products WHERE categories LIKE %?%;`;
+
+    db.query(
+      `SELECT * FROM products WHERE categories LIKE '%women%';`,
+      (err, data) => {
+        if (err) return res.status(500).json({ error: err });
+        if (data) {
+          // received.push(data);
+          console.log(data);
+          return res.status(200).json(data);
+        }
+      }
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}

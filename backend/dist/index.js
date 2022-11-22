@@ -12,8 +12,8 @@ const port = 5002;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 //
-app.use("/api", products_1.default);
-app.use(`/api`, authRoutes_1.default);
+app.use("/api/products", products_1.default);
+app.use(`/api/users`, authRoutes_1.default);
 app.use(`/`, (req, res) => {
     res.send("Homepage of the api.");
 });
