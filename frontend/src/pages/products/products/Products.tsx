@@ -27,9 +27,9 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
     const getProducts = async () => {
       try {
         let res;
-        if (cat === "women") {
+        if (cat === `women`) {
           res = await Axios.get(`http://localhost:5002/api/products/women`);
-        } else if (cat === "men") {
+        } else if (cat === `men`) {
           res = await Axios.get(`http://localhost:5002/api/products/men`);
         } else {
           res = await Axios.get(`http://localhost:5002/api/products/get`);
@@ -52,7 +52,7 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
           )
         )
       );
-  }, [filters, products, cat]);
+  }, [filters, filteredProducts, cat, products]);
 
   console.log(`filtered products`, filteredProducts);
 
