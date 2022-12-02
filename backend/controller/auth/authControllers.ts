@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { db } from "../../db";
 import bcrypt from "bcryptjs";
+import { QueryOptions } from "mysql2";
 
 export function register(request: Request, response: Response): void {
   const q = `select * from users where email = ? or username = ?`;

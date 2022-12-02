@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Categories from "../categories/Categories";
 import hm from "./home.module.css";
 
 const Home = () => {
@@ -7,12 +8,7 @@ const Home = () => {
     <div className={`${hm.homeContainer}`}>
       <div className="">Home</div>
       <div className="">
-        <div className="">
-          <Link to="/products/women">Women</Link>
-        </div>
-        <div className="">
-          <Link to="/products/women">Men</Link>
-        </div>
+        <Categories />
       </div>
     </div>
   );

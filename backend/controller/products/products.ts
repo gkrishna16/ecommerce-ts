@@ -3,8 +3,8 @@ import express, { Express, Request, Response, NextFunction } from "express";
 
 export async function getData(req: Request, res: Response) {
   db.query("select * from products", (err, data) => {
-    if (err) res.status(500).json(err);
-    if (data) res.status(200).json(data);
+    if (err) return res.status(500).json(err);
+    if (data) return res.status(200).json(data);
   });
 }
 

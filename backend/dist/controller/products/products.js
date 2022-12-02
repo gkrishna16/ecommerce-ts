@@ -15,9 +15,9 @@ function getData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         db_1.db.query("select * from products", (err, data) => {
             if (err)
-                res.status(500).json(err);
+                return res.status(500).json(err);
             if (data)
-                res.status(200).json(data);
+                return res.status(200).json(data);
         });
     });
 }

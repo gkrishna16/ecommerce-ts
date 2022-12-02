@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { TupleType } from "typescript";
 import Products from "../products/Products";
 import prl from "./productlist.module.css";
 
@@ -16,22 +15,25 @@ const Productlist = () => {
 
   function handleFilters(e: any) {
     const value = e?.target.value;
-    const name = e?.target.name;
-    setFilters({ ...filters, [name]: value });
+    // const name = e?.target.name;
+    setFilters({ ...filters, [e.target.name]: value });
+    // setFilters((prev) => {
+    //   return { ...prev, [name]: value };
+    // });
   }
 
-  console.log(filters, sort);
+  console.log(filters, sort, cat);
 
   return (
     <div>
       <div className={`${prl.containerProdlist}`}>
         <div className="">
-          <select name="colors" id="" onClick={handleFilters}>
+          <select name="colors" id="" onChange={handleFilters}>
             <option value="red">Red </option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
           </select>
-          <select name="size" id="" onClick={handleFilters}>
+          <select name="size" id="" onChange={handleFilters}>
             <option value="X">X</option>
             <option value="XL">XL</option>
             <option value="M">M</option>

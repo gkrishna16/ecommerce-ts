@@ -8,7 +8,7 @@ import {
 } from "../../controller/products/products";
 const router = express.Router();
 
-router.get("/get", getData);
+router.get("/", getData);
 router.post("/add", addData);
 router.get(`/men`, getProdcutMen);
 router.get(`/women`, getProdcutWomen);

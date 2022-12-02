@@ -21,40 +21,56 @@ interface ProductsState {
 const Products = ({ cat, filters, sort }: ProductsProps) => {
   const [products, setProducts] = useState<ProductsState[]>([]);
   const [filteredProducts, setFilteredProducts] = useState<ProductsState[]>([]);
+  // const [error, setError] = useState<String | any>("");
   console.log(filters, cat);
 
   useEffect(() => {
     const getProducts = async () => {
       try {
-        let res;
-        if (cat === `women`) {
-          res = await Axios.get(`http://localhost:5002/api/products/women`);
-        } else if (cat === `men`) {
-          res = await Axios.get(`http://localhost:5002/api/products/men`);
-        } else {
-          res = await Axios.get(`http://localhost:5002/api/products/get`);
-        }
+        const res = await Axios.get(
+          cat !== ""
+            ? `http://localhost:5002/api/products/${cat}`
+            : `http://localhost:5002/api/products`
+        );
+
         console.log(res.data);
         setProducts(res.data);
       } catch (error) {
         console.log(error);
       }
     };
+
     getProducts();
   }, [cat]);
+
+  // console.log(`filtered products`, filteredProducts);
+  console.log(products);
+  console.log(filters);
 
   useEffect(() => {
     cat &&
       setFilteredProducts(
-        products?.filter((item: ProductsState | object | null | any) =>
-          Object?.entries(filters)?.every(([key, value]) =>
+        products.filter((item: any) =>
+          Object.entries(filters).every(([key, value]) =>
             item[key].includes(value)
           )
         )
       );
-  }, [filters, filteredProducts, cat, products]);
+  }, [products, filters, cat]);
 
-  console.log(`filtered products`, filteredProducts);
+  useEffect(() => {
+    if (sort === `asc`) {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a: any, b: any) => a.price - b.price)
+      );
+    } else if (sort === `desc`) {
+      setFilteredProducts((prev) =>
+        [...prev].sort((a: any, b: any) => b.price - a.price)
+      );
+    }
+  }, [sort]);
+
+  console.log(sort);
 
   return (
     <div className="">
