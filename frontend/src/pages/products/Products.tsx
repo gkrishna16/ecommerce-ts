@@ -1,5 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import prd from "./products.module.css";
 
 interface ProductsProps {
@@ -78,10 +79,16 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
 
   return (
     <div className="">
-      <div className="">
-        {filteredProducts.map((product: ProductsState, index: number) => (
-          <div key={index} className="">
-            {product.name}
+      {cat}
+      <div className={`${prd.prodContainer}`}>
+        {filteredProducts.map((product: any, index) => (
+          <div key={index}>
+            <div className={`${prd.prodBox}`}>
+              <Link to={`/product/${product.id}`}>
+                <img className={`${prd.img}`} src={product.imgUrl} alt="" />
+              </Link>
+            </div>
+            <div className="">{product.price}</div>
           </div>
         ))}
       </div>

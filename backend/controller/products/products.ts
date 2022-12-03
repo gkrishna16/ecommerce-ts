@@ -9,13 +9,15 @@ export async function getData(req: Request, res: Response) {
 }
 
 export async function addData(req: Request, res: Response) {
-  const q = "insert into products(`name`, `price`, `imgUrl`) values (?, ?, ?)";
-
-  const values = [req.body.name, req.body.price, req.body.imgUrl];
-  db.query(q, [values], (err, data) => {
-    if (err) res.status(500).json(err);
-    if (data) res.status(200).json(`product has been added.`);
-  });
+  db.query(
+    `insert into products(name, price, imgUrl) values (?,?,?)`,
+    [req.body.name, req.body.price, req.body.imgUrl],
+    (err, data) => {
+      console.log(err);
+      if (err) res.status(500).json(err);
+      if (data) res.status(200).json(`product has been added.`);
+    }
+  );
 }
 
 export function getProdcutMen(req: Request, res: Response): void {
@@ -55,5 +57,20 @@ export function getProdcutWomen(req: Request, res: Response): void {
     );
   } catch (error) {
     console.log(error);
+  }
+}
+
+export function getProductId(req: Request, res: Response): void {
+  try {
+    db.query(
+      `select * from products where id = ?`,
+      [req.params.id],
+      (err, data) => {
+        if (err) return res.status(500).json({ error: err });
+        if (data) return res.status(200).json(data);
+      }
+    );
+  } catch (error) {
+    res.status(500).json({ error });
   }
 }

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProdcutWomen = exports.getProdcutMen = exports.addData = exports.getData = void 0;
+exports.getProductId = exports.getProdcutWomen = exports.getProdcutMen = exports.addData = exports.getData = void 0;
 const db_1 = require("../../db");
 function getData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -24,9 +24,8 @@ function getData(req, res) {
 exports.getData = getData;
 function addData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        const q = "insert into products(`name`, `price`, `imgUrl`) values (?, ?, ?)";
-        const values = [req.body.name, req.body.price, req.body.imgUrl];
-        db_1.db.query(q, [values], (err, data) => {
+        db_1.db.query(`insert into products(name, price, imgUrl) values (?,?,?)`, [req.body.name, req.body.price, req.body.imgUrl], (err, data) => {
+            console.log(err);
             if (err)
                 res.status(500).json(err);
             if (data)
@@ -71,3 +70,17 @@ function getProdcutWomen(req, res) {
     }
 }
 exports.getProdcutWomen = getProdcutWomen;
+function getProductId(req, res) {
+    try {
+        db_1.db.query(`select * from products where id = ?`, [req.params.id], (err, data) => {
+            if (err)
+                return res.status(500).json({ error: err });
+            if (data)
+                return res.status(200).json(data);
+        });
+    }
+    catch (error) {
+        res.status(500).json({ error });
+    }
+}
+exports.getProductId = getProductId;

@@ -10,7 +10,7 @@ const Categories = () => {
             <Link to="/products/women">Women</Link>
           </div>
           <div className="">
-            <Link to="/products/women">Men</Link>
+            <Link to="/products/men">Men</Link>
           </div>
         </div>
       </div>

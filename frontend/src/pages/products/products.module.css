@@ -1,0 +1,22 @@
+.containerProdpage {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.prodContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2em;
+  padding: 1em;
+}
+
+.prodBox {
+  width: 400px;
+  height: 400px;
+}
+
+.prodBox img {
+  width: 100%;
+  height: 100%;
+}

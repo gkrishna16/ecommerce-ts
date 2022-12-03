@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Products from "../products/Products";
+import Products from "../Products";
 import prl from "./productlist.module.css";
 
 const Productlist = () => {
@@ -15,11 +15,10 @@ const Productlist = () => {
 
   function handleFilters(e: any) {
     const value = e?.target.value;
-    // const name = e?.target.name;
-    setFilters({ ...filters, [e.target.name]: value });
-    // setFilters((prev) => {
-    //   return { ...prev, [name]: value };
-    // });
+    const name = e?.target.name;
+    setFilters((prev) => {
+      return { ...prev, [name]: value };
+    });
   }
 
   console.log(filters, sort, cat);
