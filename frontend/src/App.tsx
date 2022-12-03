@@ -21,7 +21,7 @@ import Productlist from "./pages/products/productlist/Productlist";
 import Product from "./pages/products/products/Product";
 
 function App() {
-  const user = true;
+  const user = false;
 
   return (
     <div className="">
@@ -40,6 +40,7 @@ function App() {
           <Route path="/products/:category" element={<Productlist />} />
           <Route path="/products" element={<Productlist />} />
           <Route path="/product/:id" element={<Product />} />
+          <Route path="/cart" element={<Cart />} />
           <Route />
         </Routes>
       </Router>

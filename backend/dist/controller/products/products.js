@@ -38,9 +38,6 @@ exports.addData = addData;
 function getProdcutMen(req, res) {
     try {
         console.log(`getProdcutMen function called.`);
-        // let received: object[] = [];
-        // let p = `SELECT id, docs FROM example WHERE docs LIKE '%cold%';`;
-        // let q = `SELECT * FROM products WHERE categories LIKE %?%;`;
         db_1.db.query(`SELECT * FROM products WHERE categories LIKE '%men%';`, (err, data) => {
             if (err)
                 return res.status(500).json({ error: err });
@@ -59,9 +56,6 @@ exports.getProdcutMen = getProdcutMen;
 function getProdcutWomen(req, res) {
     try {
         console.log(`getProdcutWomen function called.`);
-        // let received: object[] = [];
-        // let p = `SELECT id, docs FROM example WHERE docs LIKE '%cold%';`;
-        // let q = `SELECT * FROM products WHERE categories LIKE %?%;`;
         db_1.db.query(`SELECT * FROM products WHERE categories LIKE '%women%';`, (err, data) => {
             if (err)
                 return res.status(500).json({ error: err });

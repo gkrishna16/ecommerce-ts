@@ -8,6 +8,10 @@ interface ProductsProps {
   sort: string;
 }
 
+type pricetype = {
+  price: string;
+};
+
 interface ProductsState {
   id: Number;
   imgUrl: string;
@@ -64,7 +68,7 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
         [...prev].sort((a: any, b: any) => a.price - b.price)
       );
     } else if (sort === `desc`) {
-      setFilteredProducts((prev) =>
+      setFilteredProducts((prev: ProductsState[]) =>
         [...prev].sort((a: any, b: any) => b.price - a.price)
       );
     }
