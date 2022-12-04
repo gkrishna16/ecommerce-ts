@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import lgn from "./login.module.css";
 import Axios from "axios";
+import { publicRequest } from "../../requestMethod";
 
 interface loginDetails {
   userName: string;
@@ -14,20 +15,20 @@ const Login = () => {
   });
 
   console.log(loginInputs.userName, loginInputs.password);
-
   async function handleSubmit(e: any) {
     console.log(`submitted`);
     e.preventDefault();
-
     try {
-      const res = await Axios.post(``);
-    } catch (error) {}
+      const res = await publicRequest.post(`/users/login`, loginInputs);
+      console.log(res.data);
+    } catch (error) {
+      console.log(error);
+    }
   }
   return (
     <div>
       <div className={`${lgn.container}`}>
         <div className={`${lgn.formContainer}`}>
-          {" "}
           <div className="">
             {/* <label htmlFor="">Username : </label> */}
             <input
@@ -49,7 +50,7 @@ const Login = () => {
                 setLoginInputs({ ...loginInputs, password: e.target.value })
               }
             />
-          </div>{" "}
+          </div>
           <div className="">
             <button onClick={handleSubmit}>Submit</button>
           </div>

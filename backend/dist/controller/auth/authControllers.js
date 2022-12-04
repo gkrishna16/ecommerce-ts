@@ -26,7 +26,13 @@ function register(request, response) {
         });
         const salt = bcryptjs_1.default.genSaltSync(10);
         const hash = bcryptjs_1.default.hashSync(request.body.password, salt);
-        db_1.db.query(`insert into users(name, username, email, password) values (?,?,?,?)`, [request.body.name, request.body.username, request.body.email, hash], (err, data) => {
+        db_1.db.query(`insert into users(name, username, email, password, isAdmin) values (?,?,?,?,?)`, [
+            request.body.name,
+            request.body.username,
+            request.body.email,
+            hash,
+            request.body.isAdmin,
+        ], (err, data) => {
             if (err) {
                 return response.status(500).json(err);
             }
@@ -53,20 +59,26 @@ exports.registerdata = registerdata;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            db_1.db.query(`select * from products where username = ?`, [req.body.username], (err, data) => __awaiter(this, void 0, void 0, function* () {
+            db_1.db.query(`select * from users where username = ?;`, [req.body.username], (err, data) => __awaiter(this, void 0, void 0, function* () {
                 if (err)
                     return res.status(500).json(err);
                 // @ts-ignore
                 if (data.length === 0) {
                     // console.log(`User does not exist.`);
-                    return res.status(404).json("User does not exist.");
+                    return res.status(404).json({ msg: "User does not exist." });
                 }
                 else {
                     // @ts-ignore
                     const hasedPassword = data[0].password;
                     // get the hashed password from results
                     if (yield bcryptjs_1.default.compare(req.body.password, hasedPassword)) {
-                        res.status(200).json(`${req.body.username} Login successful.`);
+                        // @ts-ignore
+                        res.status(200).json(Object.assign(Object.assign({}, data[0]), { 
+                            // @ts-ignore
+                            msg: `${data[0].username} Login successful.` }));
+                        // const accessToken = jwt.sign({
+                        //   id: data.id,
+                        // });
                     }
                     else {
                         res.send(404).json(`Password incorrect.`);

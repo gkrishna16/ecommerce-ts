@@ -9,8 +9,9 @@ const Product = () => {
   const location = useLocation();
   const path = location.pathname.split("/")[2];
   console.log(path);
-
+  // product array
   const [product, setProduct] = useState<ProductsState[]>();
+  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     async function getProductById() {
@@ -25,6 +26,17 @@ const Product = () => {
     getProductById();
   }, [path]);
 
+  // button for cart
+  const handleQuantity = (type: String): void => {
+    if (type === "decs") {
+      setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+
+    console.log(quantity);
+  };
+
   return (
     <div>
       <div className="">
@@ -33,6 +45,10 @@ const Product = () => {
             <div className="" key={index}>
               <img src={item.imgUrl} alt="" />
               <div className="">{item.name}</div>
+              <div className=""></div>
+              <button onClick={() => handleQuantity(`asc`)}>+</button>
+              <button onClick={() => handleQuantity(`desc`)}>-</button>
+              <button>Add to cart.</button>
             </div>
           ))}
         </div>

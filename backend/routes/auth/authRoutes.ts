@@ -10,6 +10,6 @@ import {
 router.get("/registerdata", registerdata);
 router.post("/register", register);
 router.get(`/getproduct`, getProduct);
-router.get(`/login`, login);
+router.post(`/login`, login);
 
 export default router;

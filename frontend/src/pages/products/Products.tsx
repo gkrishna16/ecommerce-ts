@@ -9,9 +9,9 @@ interface ProductsProps {
   sort: string;
 }
 
-type pricetype = {
-  price: string;
-};
+// type pricetype = {
+//   price: string;
+// };
 
 interface ProductsState {
   id: Number;
