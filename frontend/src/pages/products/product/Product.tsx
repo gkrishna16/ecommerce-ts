@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import prd from "./product.module.css";
 import Axios from "axios";
 import { ProductsState } from "../../../types";
+import { publicRequest } from "../../../requestMethod";
 
 const Product = () => {
   const location = useLocation();
@@ -14,9 +15,7 @@ const Product = () => {
   useEffect(() => {
     async function getProductById() {
       try {
-        const res = await Axios.get(
-          `http://localhost:5002/api/products/${path}`
-        );
+        const res = await publicRequest.get(`/products/${path}`);
         console.log(res.data);
         setProduct(res.data);
       } catch (error) {
@@ -28,7 +27,16 @@ const Product = () => {
 
   return (
     <div>
-      <div className=""></div>
+      <div className="">
+        <div className="">
+          {product?.map((item, index) => (
+            <div className="" key={index}>
+              <img src={item.imgUrl} alt="" />
+              <div className="">{item.name}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

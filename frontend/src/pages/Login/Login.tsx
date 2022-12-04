@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import lgn from "./login.module.css";
+import Axios from "axios";
 
 interface loginDetails {
   userName: string;
@@ -14,11 +15,13 @@ const Login = () => {
 
   console.log(loginInputs.userName, loginInputs.password);
 
-  function handleSubmit(e: any) {
+  async function handleSubmit(e: any) {
     console.log(`submitted`);
     e.preventDefault();
 
-    fetch(``);
+    try {
+      const res = await Axios.post(``);
+    } catch (error) {}
   }
   return (
     <div>

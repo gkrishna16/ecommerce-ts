@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { db } from "../../db";
 import bcrypt from "bcryptjs";
-// import { QueryOptions } from "mysql2";
 
 export function register(request: Request, response: Response): void {
   try {
@@ -26,6 +25,7 @@ export function register(request: Request, response: Response): void {
         if (err) {
           return response.status(500).json(err);
         } else {
+          response.setHeader("Content-Type", "application/json");
           return response.status(200).json(`User has been created.`);
         }
       }
@@ -44,18 +44,30 @@ export function registerdata(req: Request, res: Response): void {
 
 export async function login(req: Request, res: Response) {
   try {
-    const user = db.query(
-      // `select * from products where username = ?`,
-      `select * from products`,
+    db.query(
+      `select * from products where username = ?`,
       [req.body.username],
-      (err, data) => {
-        if (err) return err;
-        if (data) return data;
+      async (err, data) => {
+        if (err) return res.status(500).json(err);
+        // @ts-ignore
+        if (data.length === 0) {
+          // console.log(`User does not exist.`);
+          return res.status(404).json("User does not exist.");
+        } else {
+          // @ts-ignore
+          const hasedPassword = data[0].password;
+          // get the hashed password from results
+          if (await bcrypt.compare(req.body.password, hasedPassword)) {
+            res.status(200).json(`${req.body.username} Login successful.`);
+          } else {
+            res.send(404).json(`Password incorrect.`);
+          }
+        }
       }
     );
-    console.log(user);
-    res.send(200).json(user);
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json(error);
+  }
 }
 
 export function getProduct(req: Request, res: Response): void {

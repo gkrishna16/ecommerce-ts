@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getProduct = exports.login = exports.registerdata = exports.register = void 0;
 const db_1 = require("../../db");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
-// import { QueryOptions } from "mysql2";
 function register(request, response) {
     try {
         db_1.db.query(`select * from users where email = ? or username = ?`, [request.body.email, request.body.username], (err, data) => {
@@ -32,6 +31,7 @@ function register(request, response) {
                 return response.status(500).json(err);
             }
             else {
+                response.setHeader("Content-Type", "application/json");
                 return response.status(200).json(`User has been created.`);
             }
         });
@@ -53,18 +53,30 @@ exports.registerdata = registerdata;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const user = db_1.db.query(
-            // `select * from products where username = ?`,
-            `select * from products`, [req.body.username], (err, data) => {
+            db_1.db.query(`select * from products where username = ?`, [req.body.username], (err, data) => __awaiter(this, void 0, void 0, function* () {
                 if (err)
-                    return err;
-                if (data)
-                    return data;
-            });
-            console.log(user);
-            res.send(200).json(user);
+                    return res.status(500).json(err);
+                // @ts-ignore
+                if (data.length === 0) {
+                    // console.log(`User does not exist.`);
+                    return res.status(404).json("User does not exist.");
+                }
+                else {
+                    // @ts-ignore
+                    const hasedPassword = data[0].password;
+                    // get the hashed password from results
+                    if (yield bcryptjs_1.default.compare(req.body.password, hasedPassword)) {
+                        res.status(200).json(`${req.body.username} Login successful.`);
+                    }
+                    else {
+                        res.send(404).json(`Password incorrect.`);
+                    }
+                }
+            }));
         }
-        catch (error) { }
+        catch (error) {
+            res.status(500).json(error);
+        }
     });
 }
 exports.login = login;

@@ -24,14 +24,14 @@ const Register = () => {
       let email = e.target.email.value;
 
       console.log(name, username, password, email);
-      Axios.post(`http://localhost:5002/api/register`, {
+      Axios.post(`http://localhost:5002/api/users/register`, {
         name,
         username,
         password,
         email,
       });
 
-      navigate(`/login`);
+      // navigate(`/login`);
     } catch (error) {
       console.log(error);
     }
