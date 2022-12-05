@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import prd from "./product.module.css";
-import Axios from "axios";
 import { ProductsState } from "../../../types";
 import { publicRequest } from "../../../requestMethod";
 
@@ -11,7 +10,9 @@ const Product = () => {
   console.log(id);
   // product array
   const [product, setProduct] = useState<ProductsState[]>();
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
+  const [color, setColor] = useState("");
+  const [size, setSize] = useState("");
 
   useEffect(() => {
     async function getProductById() {
@@ -40,27 +41,67 @@ const Product = () => {
     <div>
       <div className="">
         <div>
-          {product?.map((item, index) => (
+          {product?.map((item: ProductsState, index) => (
             <div className={`${prd.productContainer}`}>
               <div className={`${prd.imgBox}`} key={index}>
                 <img src={item.imgUrl} alt="" />
-                <div className="">{item.name}</div>
-                <div className=""></div>
-                <button onClick={() => handleQuantity(`asc`)}>+</button>
-                <button onClick={() => handleQuantity(`desc`)}>-</button>
-                <button>Add to cart.</button>
+                {/* <div className="">{item.name}</div> */}
+                <div className={`${prd.leftButton}`}>
+                  <div className="">
+                    <button onClick={() => handleQuantity(`asc`)}>+</button>
+                    <button onClick={() => handleQuantity(`desc`)}>-</button>
+                  </div>
+                  <button>Add to cart.</button>
+                </div>
               </div>
+
               <div className={`${prd.infoBox}`}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum.
+                <div className={`${prd.top}`}>
+                  <div className={`${prd.title}`}>
+                    {item.name.toUpperCase()}
+                  </div>
+                  <div className={`${prd.desc}`}>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                    standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a
+                    type specimen book.
+                  </div>
+                </div>
+                <div className={`${prd.colSize}`}>
+                  <div className="">
+                    <div className="">Color</div>
+                    <select name="color" id="">
+                      <option value="red">Red</option>
+                      <option value="yellow">Yellow</option>
+                      <option value="green">Green</option>
+                    </select>
+                  </div>
+                  <div className="">
+                    <div className="">Size</div>
+                    <select name="size" id="">
+                      <option value="X">X</option>
+                      <option value="XL">XL</option>
+                      <option value="M">M</option>
+                      <option value="S">S</option>
+                      <option value="XXL">XXL</option>
+                    </select>
+                  </div>
+                </div>
+                <div className={`${prd.quan}`}>
+                  <div className="">
+                    <div className="">Quantity</div>
+                    <button>+</button>
+                    <button>-</button>
+                  </div>
+                  <div className="">
+                    <button>Add to Cart.</button>
+                  </div>
+                </div>
+                <div className={`${prd.pri}`}>
+                  <div className="">Price : </div>
+                  <div className="">${item.price.toString()}</div>
+                </div>
               </div>
             </div>
           ))}
