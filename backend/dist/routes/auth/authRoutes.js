@@ -8,6 +8,5 @@ const router = express_1.default.Router();
 const authControllers_1 = require("../../controller/auth/authControllers");
 router.get("/registerdata", authControllers_1.registerdata);
 router.post("/register", authControllers_1.register);
-router.get(`/getproduct`, authControllers_1.getProduct);
 router.post(`/login`, authControllers_1.login);
 exports.default = router;

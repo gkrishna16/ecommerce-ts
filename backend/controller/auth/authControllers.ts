@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
 import { db } from "../../db";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { userInfo } from "os";
+import jwt, { Secret, JwtPayload } from "jsonwebtoken";
+
+export interface CustomRequest extends Request {
+  token: string | JwtPayload;
+}
 
 export function register(request: Request, response: Response): void {
   try {
@@ -21,7 +25,7 @@ export function register(request: Request, response: Response): void {
     const hash = bcrypt.hashSync(request.body.password, salt);
 
     db.query(
-      `insert into users(name, username, email, password, isAdmin) values (?,?,?,?,?)`,
+      `insert into users(name, username, email, password, isAdmin) values (?,?,?,?,false)`,
       [
         request.body.name,
         request.body.username,
@@ -52,6 +56,7 @@ export function registerdata(req: Request, res: Response): void {
 
 export async function login(req: Request, res: Response) {
   try {
+    // console.log(typeof process.env.secretKey);
     db.query(
       `select * from users where username = ?;`,
       [req.body.username],
@@ -67,31 +72,34 @@ export async function login(req: Request, res: Response) {
           // get the hashed password from results
           if (await bcrypt.compare(req.body.password, hasedPassword)) {
             // @ts-ignore
+            const accessToken = jwt.sign(
+              {
+                // @ts-ignore
+                id: data[0].id,
+                // @ts-ignore
+                isAdmin: data[0].isAdmin,
+              },
+              // @ts-ignore
+              process.env.secretKey,
+              { expiresIn: "3d" }
+            );
+            // @ts-ignore
+            const { password, ...others } = data[0];
+
+            // @ts-ignore
             res.status(200).json({
               // @ts-ignore
-              ...data[0],
+              ...others,
               // @ts-ignore
               msg: `${data[0].username} Login successful.`,
+              accessToken,
             });
-
-            // const accessToken = jwt.sign({
-            //   id: data.id,
-            // });
           } else {
             res.send(404).json(`Password incorrect.`);
           }
         }
       }
     );
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
-
-export function getProduct(req: Request, res: Response): void {
-  const category = req.query.cat;
-  try {
-    res.status(200).json(category);
   } catch (error) {
     res.status(500).json(error);
   }

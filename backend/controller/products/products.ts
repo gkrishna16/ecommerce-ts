@@ -74,3 +74,12 @@ export function getProductId(req: Request, res: Response): void {
     res.status(500).json({ error });
   }
 }
+
+export function getProduct(req: Request, res: Response): void {
+  const category = req.query.cat;
+  try {
+    res.status(200).json(category);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProductId = exports.getProdcutWomen = exports.getProdcutMen = exports.addData = exports.getData = void 0;
+exports.getProduct = exports.getProductId = exports.getProdcutWomen = exports.getProdcutMen = exports.addData = exports.getData = void 0;
 const db_1 = require("../../db");
 function getData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -84,3 +84,13 @@ function getProductId(req, res) {
     }
 }
 exports.getProductId = getProductId;
+function getProduct(req, res) {
+    const category = req.query.cat;
+    try {
+        res.status(200).json(category);
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+}
+exports.getProduct = getProduct;

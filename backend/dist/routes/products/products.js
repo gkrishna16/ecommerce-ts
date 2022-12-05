@@ -11,4 +11,5 @@ router.post("/add", products_1.addData);
 router.get(`/men`, products_1.getProdcutMen);
 router.get(`/women`, products_1.getProdcutWomen);
 router.get("/:id", products_1.getProductId);
+router.get(`/getproduct`, products_1.getProduct);
 exports.default = router;

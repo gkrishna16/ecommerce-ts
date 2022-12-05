@@ -8,13 +8,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProduct = exports.login = exports.registerdata = exports.register = void 0;
+exports.login = exports.registerdata = exports.register = void 0;
 const db_1 = require("../../db");
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function register(request, response) {
     try {
         db_1.db.query(`select * from users where email = ? or username = ?`, [request.body.email, request.body.username], (err, data) => {
@@ -26,7 +38,7 @@ function register(request, response) {
         });
         const salt = bcryptjs_1.default.genSaltSync(10);
         const hash = bcryptjs_1.default.hashSync(request.body.password, salt);
-        db_1.db.query(`insert into users(name, username, email, password, isAdmin) values (?,?,?,?,?)`, [
+        db_1.db.query(`insert into users(name, username, email, password, isAdmin) values (?,?,?,?,false)`, [
             request.body.name,
             request.body.username,
             request.body.email,
@@ -59,6 +71,7 @@ exports.registerdata = registerdata;
 function login(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            // console.log(typeof process.env.secretKey);
             db_1.db.query(`select * from users where username = ?;`, [req.body.username], (err, data) => __awaiter(this, void 0, void 0, function* () {
                 if (err)
                     return res.status(500).json(err);
@@ -73,12 +86,20 @@ function login(req, res) {
                     // get the hashed password from results
                     if (yield bcryptjs_1.default.compare(req.body.password, hasedPassword)) {
                         // @ts-ignore
-                        res.status(200).json(Object.assign(Object.assign({}, data[0]), { 
+                        const accessToken = jsonwebtoken_1.default.sign({
                             // @ts-ignore
-                            msg: `${data[0].username} Login successful.` }));
-                        // const accessToken = jwt.sign({
-                        //   id: data.id,
-                        // });
+                            id: data[0].id,
+                            // @ts-ignore
+                            isAdmin: data[0].isAdmin,
+                        }, 
+                        // @ts-ignore
+                        process.env.secretKey, { expiresIn: "3d" });
+                        // @ts-ignore
+                        const _a = data[0], { password } = _a, others = __rest(_a, ["password"]);
+                        // @ts-ignore
+                        res.status(200).json(Object.assign(Object.assign({}, others), { 
+                            // @ts-ignore
+                            msg: `${data[0].username} Login successful.`, accessToken }));
                     }
                     else {
                         res.send(404).json(`Password incorrect.`);
@@ -92,13 +113,3 @@ function login(req, res) {
     });
 }
 exports.login = login;
-function getProduct(req, res) {
-    const category = req.query.cat;
-    try {
-        res.status(200).json(category);
-    }
-    catch (error) {
-        res.status(500).json(error);
-    }
-}
-exports.getProduct = getProduct;

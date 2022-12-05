@@ -5,6 +5,7 @@ import {
   getData,
   getProdcutMen,
   getProdcutWomen,
+  getProduct,
   getProductId,
 } from "../../controller/products/products";
 const router = express.Router();
@@ -14,5 +15,6 @@ router.post("/add", addData);
 router.get(`/men`, getProdcutMen);
 router.get(`/women`, getProdcutWomen);
 router.get("/:id", getProductId);
+router.get(`/getproduct`, getProduct);
 
 export default router;
