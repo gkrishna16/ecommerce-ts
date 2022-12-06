@@ -3,8 +3,7 @@ import { useLocation } from "react-router-dom";
 import prd from "./product.module.css";
 import { ProductsState } from "../../../types";
 import { publicRequest } from "../../../requestMethod";
-import { useDispatch, useSelector } from "react-redux";
-import Axios from "axios";
+import { useDispatch } from "react-redux";
 import { addProduct } from "../../../components/redux/cartRedux";
 
 const Product = () => {
@@ -14,7 +13,7 @@ const Product = () => {
 
   // product array
   const [product, setProduct] = useState<ProductsState>();
-  const [quantity, setQuantity] = useState<Number>(1);
+  const [quantity, setQuantity] = useState<Number>(0);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
 
@@ -36,7 +35,7 @@ const Product = () => {
 
   // button for cart
   const handleQuantity = (type: String): void => {
-    if (type === "desc") {
+    if (type === "desc" && quantity > 0) {
       setQuantity(Number(quantity) - 1);
     } else {
       setQuantity(Number(quantity) + 1);
@@ -46,16 +45,20 @@ const Product = () => {
 
   function handleClick() {
     // update cart
-    // @ts-ignore
-    dispatch(
+    if (quantity > 0) {
       // @ts-ignore
-      addProduct({
-        ...product,
-        quantity,
-        color,
-        size,
-      })
-    );
+      dispatch(
+        // @ts-ignore
+        addProduct({
+          ...product,
+          quantity,
+          color,
+          size,
+        })
+      );
+    } else {
+      alert("The product quantity is 0.");
+    }
   }
 
   return (
