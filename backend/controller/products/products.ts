@@ -10,8 +10,15 @@ export async function getData(req: Request, res: Response) {
 
 export async function addData(req: Request, res: Response) {
   db.query(
-    `insert into products(name, price, imgUrl) values (?,?,?)`,
-    [req.body.name, req.body.price, req.body.imgUrl],
+    `insert into products(title, price, img, categories, size, color) values (?,?,?,?,?,?)`,
+    [
+      req.body.title,
+      req.body.price,
+      req.body.img,
+      [JSON.stringify(req.body.categories)],
+      req.body.size,
+      req.body.color,
+    ],
     (err, data) => {
       console.log(err);
       if (err) res.status(500).json(err);

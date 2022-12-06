@@ -12,7 +12,7 @@ interface registerDetails {
 
 const Register = () => {
   const navigate = useNavigate();
-  console.log(navigate);
+  // console.log(navigate);
 
   function registerSubmit(e: any) {
     e.preventDefault();

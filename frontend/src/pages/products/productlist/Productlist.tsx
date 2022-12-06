@@ -27,10 +27,11 @@ const Productlist = () => {
     <div>
       <div className={`${prl.containerProdlist}`}>
         <div className="">
-          <select name="colors" id="" onChange={handleFilters}>
+          <select name="color" id="" onChange={handleFilters}>
             <option value="red">Red </option>
             <option value="blue">Blue</option>
             <option value="green">Green</option>
+            <option value="grey">Grey</option>
           </select>
           <select name="size" id="" onChange={handleFilters}>
             <option value="X">X</option>

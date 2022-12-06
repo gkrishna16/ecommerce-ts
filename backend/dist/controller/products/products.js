@@ -24,7 +24,14 @@ function getData(req, res) {
 exports.getData = getData;
 function addData(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        db_1.db.query(`insert into products(name, price, imgUrl) values (?,?,?)`, [req.body.name, req.body.price, req.body.imgUrl], (err, data) => {
+        db_1.db.query(`insert into products(title, price, img, categories, size, color) values (?,?,?,?,?,?)`, [
+            req.body.title,
+            req.body.price,
+            req.body.img,
+            [JSON.stringify(req.body.categories)],
+            req.body.size,
+            req.body.color,
+        ], (err, data) => {
             console.log(err);
             if (err)
                 res.status(500).json(err);

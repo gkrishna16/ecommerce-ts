@@ -10,10 +10,10 @@ export type pricetype = {
 
 export interface ProductsState {
   id: Number;
-  imgUrl: string;
-  name: string;
+  img: string;
+  title: string;
   price: Number;
-  size: Array<string>;
-  colors: string[];
+  size: String;
+  color: string;
   categories: string[];
 }

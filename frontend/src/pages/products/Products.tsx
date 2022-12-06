@@ -57,7 +57,7 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
       setFilteredProducts(
         products.filter((item: any) =>
           Object.entries(filters).every(([key, value]) =>
-            item[key].includes(value)
+            item[key]?.includes(value)
           )
         )
       );
@@ -85,10 +85,14 @@ const Products = ({ cat, filters, sort }: ProductsProps) => {
           <div key={index}>
             <div className={`${prd.prodBox}`}>
               <Link to={`/product/${product.id}`}>
-                <img className={`${prd.img}`} src={product.imgUrl} alt="" />
+                <img className={`${prd.img}`} src={product.img} alt="" />
               </Link>
             </div>
-            <div className="">{product.price}</div>
+
+            <div className="">
+              <div className="">{product.title}</div>
+              <div className="">{product.price}</div>
+            </div>
           </div>
         ))}
       </div>
