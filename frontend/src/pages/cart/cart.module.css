@@ -1,0 +1,11 @@
+.cartBox {
+  display: grid;
+  border: 1px solid black;
+  width: 800px;
+  height: 200px;
+}
+
+.cartBox img {
+  width: 20%;
+  height: 90%;
+}

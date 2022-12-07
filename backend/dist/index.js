@@ -16,19 +16,7 @@ const app = (0, express_1.default)();
 const port = 5002;
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*");
-//   res.header(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, OPTIONS, PUT, PATCH, DELETE"
-//   );
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "x-access-token, Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
-//
+// routes
 app.use("/api/products", products_1.default);
 app.use(`/api/users`, users_1.default);
 app.use(`/api/cart`, carts_1.default);

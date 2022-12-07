@@ -1,5 +1,5 @@
 import { db } from "../../db";
-import { Express, Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 
 export async function getData(req: Request, res: Response) {
   db.query("select * from products", (err, data) => {

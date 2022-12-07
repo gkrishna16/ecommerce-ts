@@ -13,7 +13,7 @@ const Product = () => {
 
   // product array
   const [product, setProduct] = useState<ProductsState>();
-  const [quantity, setQuantity] = useState<Number>(0);
+  const [quantity, setQuantity] = useState<Number>(1);
   const [color, setColor] = useState("");
   const [size, setSize] = useState("");
 
@@ -35,7 +35,7 @@ const Product = () => {
 
   // button for cart
   const handleQuantity = (type: String): void => {
-    if (type === "desc" && quantity > 0) {
+    if (type === "desc" && quantity !== 0) {
       setQuantity(Number(quantity) - 1);
     } else {
       setQuantity(Number(quantity) + 1);

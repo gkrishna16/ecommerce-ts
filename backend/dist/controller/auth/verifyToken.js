@@ -20,9 +20,11 @@ const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
         const authHeader = req.headers.authorization;
         if (authHeader) {
             const token = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(" ")[1];
+            // @ts-ignore
             jsonwebtoken_1.default.verify(token, process.env.secretKey, (err, user) => {
                 if (err)
                     res.status(403).json(`Token is not valid.`);
+                // @ts-ignore
                 req.user = user;
                 next();
             });
@@ -31,11 +33,14 @@ const verifyToken = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             return res.status(401).json(`You are not authenticated.`);
         }
     }
-    catch (error) { }
+    catch (error) {
+        res.status(500).json("Something went wrong !");
+    }
 });
 exports.verifyToken = verifyToken;
 const verifyTokenAndAuthorization = (req, res, next) => {
     (0, exports.verifyToken)(req, res, () => {
+        // @ts-ignore
         if (req.user.id === req.params.id || req.user.isAdmin) {
             next();
         }

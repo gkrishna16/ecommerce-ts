@@ -16,19 +16,21 @@ export const verifyToken = async (
 ) => {
   try {
     const authHeader = req.headers.authorization;
-
     if (authHeader) {
-      const token: String = authHeader?.split(" ")[1];
-
+      const token = authHeader?.split(" ")[1];
+      // @ts-ignore
       jwt.verify(token, process.env.secretKey, (err, user) => {
         if (err) res.status(403).json(`Token is not valid.`);
+        // @ts-ignore
         req.user = user;
         next();
       });
     } else {
       return res.status(401).json(`You are not authenticated.`);
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(500).json("Something went wrong !");
+  }
 };
 
 export const verifyTokenAndAuthorization = (
@@ -37,6 +39,7 @@ export const verifyTokenAndAuthorization = (
   next: NextFunction
 ) => {
   verifyToken(req, res, () => {
+    // @ts-ignore
     if (req.user.id === req.params.id || req.user.isAdmin) {
       next();
     } else {

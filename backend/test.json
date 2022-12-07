@@ -16,5 +16,11 @@
     "size": "M",
     "color": "grey",
     "price": 30
+  },
+  {
+    "username": "test1",
+    "name": "gopal",
+    "email": "gopal@test.com",
+    "password": "test"
   }
 ]
