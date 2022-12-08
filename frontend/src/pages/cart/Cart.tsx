@@ -31,12 +31,13 @@ const Cart = () => {
           amount: cart.total * 100,
           currency: "usd",
         });
-        navigate(`/success`);
       } catch (error) {
         console.error(error);
       }
     };
     makeRequest();
+    // @ts-ignore
+    // navigate(`/success`, { data: res.data });
   }, [stripeToken, cart.total, navigate]);
 
   return (
@@ -53,8 +54,8 @@ const Cart = () => {
                   name="Gopal Ecommerce"
                   billingAddress
                   shippingAddress
-                  description={`Your total is ${cart.total * 100}`}
-                  amount={cart.total * 100}
+                  description={`Your total is ${cart.total}`}
+                  amount={cart.total}
                   token={onToken}
                   // @ts-ignore
                   stripeKey={KEY}
@@ -71,3 +72,4 @@ const Cart = () => {
 };
 
 export default Cart;
+// bimbo9874
