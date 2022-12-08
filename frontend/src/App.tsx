@@ -19,6 +19,7 @@ import Register from "./pages/register/Register";
 import Login from "./pages/Login/Login";
 import Productlist from "./pages/products/productlist/Productlist";
 import Product from "./pages/products/product/Product";
+import Success from "./pages/success/Success";
 
 function App() {
   const user = false;
@@ -41,6 +42,7 @@ function App() {
           <Route path="/products" element={<Productlist />} />
           <Route path="/product/:id" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/success" element={<Success />} />
           <Route />
         </Routes>
       </Router>
