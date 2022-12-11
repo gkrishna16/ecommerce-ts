@@ -6,6 +6,8 @@ import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
 import Cart from "./pages/Cart.jsx/Cart";
 import ProductList from "./components/productList/ProductList";
+import Product from "./pages/Product/Product";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -16,7 +18,9 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />
       </Routes>
+      <Footer />
     </div>
   );
 }

@@ -1,21 +1,18 @@
-import React, { useEffect } from "react";
-import Axios from "axios";
+import React from "react";
+import { Link } from "react-router-dom";
+import hm from "./home.module.css";
 
 const Home = () => {
-  useEffect(() => {
-    async function getProducts(url) {
-      try {
-        const res = await Axios.get(url);
-        const data = await res.json();
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  }, []);
+
 
   return (
     <div>
       <div className="">Home</div>
+      <div className={`${hm.links}`}>
+        <Link to="/products/men">Men</Link>
+        <Link to="/products/women">Women</Link>{" "}
+        <Link to="/products/tshirts">Tshirts</Link>
+      </div>
     </div>
   );
 };
