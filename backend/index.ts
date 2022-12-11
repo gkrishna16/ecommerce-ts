@@ -5,6 +5,7 @@ import products from "./routes/products/products";
 import auth from "./routes/auth/authRoutes";
 import carts from "./routes/carts/carts";
 import users from "./routes/users/users";
+import pay from "./routes/stripe/stripe";
 import dotenv from "dotenv";
 dotenv.config();
 const app: Express = express();
@@ -18,6 +19,7 @@ app.use("/api/products", products);
 app.use(`/api/users`, users);
 app.use(`/api/cart`, carts);
 app.use(`/api/auth`, auth);
+app.use(`/api/pay`, pay);
 
 app.use(`/`, (req: Request, res: Response) => {
   res.send("Homepage of the api.");

@@ -24,20 +24,26 @@ const Cart = () => {
 
   useEffect(() => {
     const makeRequest = async () => {
-      try {
-        const res = await userRequest(`/pay/payment`, {
+      // try {
+        const res = await userRequest.post(`/pay/payment`, {
           // @ts-ignore
           tokenId: stripeToken,
           amount: cart.total * 100,
           currency: "usd",
         });
-      } catch (error) {
-        console.error(error);
-      }
+        // @ts-ignore
+        navigate(`/success`, { data: res.data });
+      // } catch (error) {
+        // console.error(error);
+      // }
     };
     makeRequest();
     // @ts-ignore
-    // navigate(`/success`, { data: res.data });
+    // navigate(`/success`, { 
+    
+    
+    data: res.data
+  });
   }, [stripeToken, cart.total, navigate]);
 
   return (

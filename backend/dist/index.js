@@ -10,6 +10,7 @@ const products_1 = __importDefault(require("./routes/products/products"));
 const authRoutes_1 = __importDefault(require("./routes/auth/authRoutes"));
 const carts_1 = __importDefault(require("./routes/carts/carts"));
 const users_1 = __importDefault(require("./routes/users/users"));
+const stripe_1 = __importDefault(require("./routes/stripe/stripe"));
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -21,6 +22,7 @@ app.use("/api/products", products_1.default);
 app.use(`/api/users`, users_1.default);
 app.use(`/api/cart`, carts_1.default);
 app.use(`/api/auth`, authRoutes_1.default);
+app.use(`/api/pay`, stripe_1.default);
 app.use(`/`, (req, res) => {
     res.send("Homepage of the api.");
 });
