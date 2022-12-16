@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import "./App.css";
 import React from "react";
 import About from "./pages/About/About";
@@ -8,19 +8,23 @@ import Cart from "./pages/Cart.jsx/Cart";
 import ProductList from "./components/productList/ProductList";
 import Product from "./pages/Product/Product";
 import Footer from "./components/Footer/Footer";
+import Container from "./components/Container/Container";
 
 function App() {
   return (
     <div className="">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/products/:category" element={<ProductList />} />
-        <Route path="/product/:id" element={<Product />} />
-      </Routes>
-      <Footer />
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/products/:category" element={<ProductList />} />
+          <Route path="/product/:id" element={<Product />} />
+          <Route path="/container" element={<Container />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
